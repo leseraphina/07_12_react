@@ -1,17 +1,29 @@
-import React from 'react';
+import React ,{useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+function App(props){
+  const [count,setCount] = useState(0)
+  useEffect(()=>{console.log('effect0')});
+  useEffect(()=>{console.log('effect1',count)},[]);
+  useEffect(()=>{console.log('effect2',count)},[count]);
+  return (
+    <div>
+      <h1>effect 기본 {props.title}</h1>
+      <p>count변경보기 : {count}</p>
+      <button onClick = {click}>click</button>
+    </div>
+  )
+  function click(){
+    setCount(count + 1)
+  }
+}
+
+
+// 출력
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App title="welcome" />
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
